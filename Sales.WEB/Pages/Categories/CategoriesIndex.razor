@@ -3,35 +3,40 @@
 
 <h3>Categoría</h3>
 
-@if(Categories is null)
-{
-    <p>Cargando...</p>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Categoria</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in Categories)
-            {
+<GenericList MyList="Categories">
+
+    <Loading>
+        <p>Cargando...</p>
+    </Loading>
+
+    <Body>
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>
-                        <a class="btn btn-warning">Editar</a>
-                        <button class="btn btn-danger">Borrar</button>
-                    </td>
-                    <td>
-                        @category.Name
-                    </td>
+                    <th></th>
+                    <th>Categoria</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var category in Categories!)
+                {
+                    <tr>
+                        <td>
+                            <a class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger">Borrar</button>
+                        </td>
+                        <td>
+                            @category.Name
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+
+</GenericList>
+
+
 
 @code {
     public List<Category>? Categories { get; set; }
