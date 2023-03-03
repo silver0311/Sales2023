@@ -17,20 +17,60 @@ namespace Sales.API.Controllers
         }
 
         [HttpGet]
-        public async Task <IActionResult> GetAsync()
+        public async Task<IActionResult> GetAsync()
         {
             return Ok(await _context.Categories.ToListAsync());
         }
 
-        
-        [HttpPost]
-
-        public async Task <ActionResult> PostAsync(Category category)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetAsync(int id)
+    {
+        var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+        if (category is null)
         {
-            _context.Add(category);
-            await _context.SaveChangesAsync();
-            return Ok(category);    
+            return NotFound();
         }
-            
+
+        return Ok(category);
+
+
+    }
+
+
+    [HttpPost]
+
+    public async Task<ActionResult> PostAsync(Category category)
+    {
+        _context.Add(category);
+        await _context.SaveChangesAsync();
+        return Ok(category);
+    }
+
+        [HttpPut]
+
+        public async Task<ActionResult> PutAsync(Category category)
+        {
+            _context.Update(category);
+            await _context.SaveChangesAsync();
+            return Ok(category);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DleteAsync(int id)
+        {
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+            if (category is null)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(category);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+
+
+        }
+
     }
 }
