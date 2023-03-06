@@ -6,10 +6,11 @@
 
 <h3>Crear Categoria</h3>
 
-<CategoryForm Category="category" OnValidSubmit ="Create" ReturnAction="Return"/>
+<CategoryForm @ref="categoryForm" Category="category" OnValidSubmit="Create" ReturnAction="Return" />
 
 @code {
     private Category category = new();
+    private CategoryForm? categoryForm;
 
     private async Task Create()
     {
@@ -21,11 +22,12 @@
             return;
         }
 
-        navigationManager.NavigateTo("/categories");
+        Return();
     }
 
     private void Return()
     {
+        categoryForm!.FormPostedSuceefully = true;
         navigationManager.NavigateTo("/categories");
     }
 

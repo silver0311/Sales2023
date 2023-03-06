@@ -1,5 +1,8 @@
 ﻿@page "/categories"
 @inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
 
 <h3>Categoría</h3>
 
@@ -24,8 +27,8 @@
                 {
                     <tr>
                         <td>
-                            <a class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger">Borrar</button>
+                            <a class="btn btn-warning" href="/categories/edit/@category.Id">Editar</a>
+                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(category.Id))>Borrar</button>
                         </td>
                         <td>
                             @category.Name
@@ -45,8 +48,46 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadAsync();
+    }
 
+    private async Task LoadAsync()
+    {
         var responseHttp = await repository.Get<List<Category>>("/api/categories");
         Categories = responseHttp.Response;
+    }
+
+    private async Task DeleteAsync(int Id)
+    {
+        var result = await sweetAlertService.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Realmente deseas eliminar el registro?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true,
+                CancelButtonText = "No",
+                ConfirmButtonText = "Si"
+
+            });
+
+        var confirm = string.IsNullOrEmpty(result.Value);
+        if (confirm)
+        {
+            return;
+        }
+
+        var responseHttp = await repository.Delete($"/api/categories/{Id}");
+        if (responseHttp.Error)
+        {
+            if(responseHttp.HttpResponseMessage.StatusCode != HttpStatusCode.NotFound)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+                return;
+            }
+        }
+
+        await LoadAsync();
+
     }
 }
