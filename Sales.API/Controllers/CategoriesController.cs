@@ -50,7 +50,7 @@ namespace Sales.API.Controllers
             }
             catch (DbUpdateException dbUpdateException)
             {
-                if(dbUpdateException.InnerException!.Message.Contains("dplucate"))
+                if(dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
                     return BadRequest("Ya existe una categoria con el mismo nombre.");
                 }
@@ -77,7 +77,7 @@ namespace Sales.API.Controllers
             }
             catch (DbUpdateException dbUpdateException)
             {
-                if (dbUpdateException.InnerException!.Message.Contains("dplucate"))
+                if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
                     return BadRequest("Ya existe una categoria con el mismo nombre.");
                 }
