@@ -8,7 +8,7 @@ namespace Sales.Shared.Entities
 
         [Display(Name = "Categoría")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        [MaxLength(50, ErrorMessage = "El campo {0} no puede tener mas de {1} caractéres")]
+        [MaxLength(100, ErrorMessage = "El campo {0} no puede tener mas de {1} caractéres")]
 
         public string Name { get; set; } = null!;
     }

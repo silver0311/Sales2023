@@ -10,11 +10,13 @@ namespace Sales.API.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasIndex(x => x.Name).IsUnique();
+            
         }
     }
 }
