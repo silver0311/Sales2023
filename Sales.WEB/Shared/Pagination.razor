@@ -31,21 +31,47 @@
                 Enable = previousLinkEnable
             });
 
+        int counter = 1;
+
         for (int i = 1; i <= TotalPages; i++)
+
         {
-            if (i >= CurrentPage - Radio && i <= CurrentPage + Radio)
+            if (counter <= 5)
             {
-                Links.Add(new PageModel
+                if(CurrentPage > 5)
+                {
+                    if (i > (CurrentPage - 5))
                     {
-                        Page = i,
-                        Enable = CurrentPage == i,
-                        Text = $"{i}"
-                    });
+                        Links.Add(new PageModel
+                            {
+                                Page = i,
+                                Enable = CurrentPage == i,
+                                Text = $"{i}"
+                            });
+                        counter++;
+                    }
+                }
+                else
+                {
+                    Links.Add(new PageModel
+                        {
+                            Page = i,
+                            Enable = CurrentPage == i,
+                            Text = $"{i}"
+                        });
+                    counter++;
+                }
             }
+            
         }
 
         var linkNextEnable = CurrentPage != TotalPages;
-        var linkNextPage = CurrentPage + 1;
+        var linkNextPage = 0;
+        if (CurrentPage != TotalPages)
+        {
+             linkNextPage = CurrentPage + 1;
+        }
+        
         Links.Add(new PageModel
             {
                 Text = "Siguiente",
