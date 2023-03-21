@@ -1,21 +1,19 @@
 ﻿@typeparam Titem
 
-@if(MyList is null)
+@if (MyList is null)
 {
-    @if(Loading is null)
+    @if (Loading is null)
     {
-        <div class="align-items-center">
-            <img src="http://static.demilked.com/wp-content/uploads/2016/06/gif-animations-replace-loading-screen-14.gif"/>
-            </div>
-
-            
+        <div clas">
+            <img src="http://static.demilked.com/wp-content/uploads/2016/06/gif-animations-replace-loading-screen-14.gif" />
+        </div>
     }
     else
     {
         @Loading
     }
 }
-else if(MyList.Count == 0)
+else if (MyList.Count == 0)
 {
     @if (NoRecords is null)
     {
