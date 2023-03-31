@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sales.Shared.Enums
+﻿namespace Sales.Shared.Enums
 {
-    internal class UserType
+    public enum UserType
     {
+        Admin,
+        User
     }
+
 }
