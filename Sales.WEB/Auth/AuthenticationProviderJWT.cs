@@ -51,7 +51,6 @@ namespace Sales.WEB.Auth
         }
 
 
-
         public async Task LoginAsync(string token)
         {
             await _jSRuntime.SetLocalStorage(_tokenKey, token);
