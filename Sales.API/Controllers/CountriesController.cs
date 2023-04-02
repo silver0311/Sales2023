@@ -22,6 +22,16 @@ namespace Sales.API.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
+        [HttpGet("combo")]
+        public async Task<ActionResult> GetCombo()
+        {
+            return Ok(await _context.Countries.ToListAsync());
+        }
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
@@ -81,12 +91,10 @@ namespace Sales.API.Controllers
 
             return Ok(country);
 
-
         }
 
-
         [HttpPost]
-
+        
         public async Task<ActionResult> PostAsync(Country country)
         {
             try
@@ -113,7 +121,6 @@ namespace Sales.API.Controllers
         }
 
         [HttpPut]
-
         public async Task<ActionResult> PutAsync(Country country)
         {
             try
