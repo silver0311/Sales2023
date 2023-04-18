@@ -1,4 +1,4 @@
-﻿@page "/countries/edit/{Id:int}"
+﻿@page "/countries/edit/{CountryId:int}"
 @inject IRepository repository
 @inject NavigationManager navigationManager
 @inject SweetAlertService sweetAlertService
@@ -19,12 +19,16 @@ else
     private Country? country;
     private CountryForm? countryForm;
 
+    [CascadingParameter]
+    BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+
     [Parameter]
-    public int Id { get; set; }
+    public int CountryId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        var responseHttp = await repository.Get<Country>($"/api/countries/{Id}");
+        var responseHttp = await repository.Get<Country>($"/api/countries/{CountryId}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
@@ -50,6 +54,8 @@ else
             await sweetAlertService.FireAsync("Error", messages, SweetAlertIcon.Error);
             return;
         }
+
+        await BlazoredModal.CloseAsync(ModalResult.Ok());
 
         Return();
 
